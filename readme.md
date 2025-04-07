@@ -1,4 +1,4 @@
-# Abstraction and Reasoning Corpus for Artificial General Intelligence (ARC-AGI-2)
+# Abstraction and Reasoning Corpus for Artificial General Intelligence v2 (ARC-AGI-2)
 
 This repository contains the ARC-AGI-2 task data (ARC-AGI-1 can be found [here](https://github.com/fchollet/arc-agi)).
 
