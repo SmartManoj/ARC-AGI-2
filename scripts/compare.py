@@ -1,14 +1,24 @@
 import json
-file = '../ARC-AGI-2.worktrees/main/data/training/b74ca5d1.json'
-old_data = json.load(open(file, 'r'))
-new_file = 'data/training/b74ca5d1.json'
-new_data = json.load(open(new_file, 'r'))
+import subprocess
+
+cmd = 'git diff main -- data/evaluation/1ae2feb7.json'
+output = subprocess.check_output(cmd, shell=True).decode('utf-8')
+for line in output.split('\n'):
+    if line.startswith('---'):
+        continue
+    if line.startswith('+++'):
+        continue
+    if line.startswith('-'):
+        old_data = json.loads(line[1:])
+    if line.startswith('+'):
+        new_data = json.loads(line[1:])
+
 def compare(old, new):
     info = ''
     for i in range(len(old)):
         for j in range(len(old[0])):
             if old[i][j] != new[i][j]:
-                info += f"Cell {i}, {j} is different; {old[i][j] = } {new[i][j] = }\n"
+                info += f"Row {i+1}, Column {j+1} is different; Old: {old[i][j]}, New: {new[i][j]}\n"
     return info
 
 for split in ['train', 'test']:
