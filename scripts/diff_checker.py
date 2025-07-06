@@ -1,7 +1,12 @@
 import json
 import subprocess
+# get changed file from last commit
 
-cmd = 'git diff main -- data/evaluation/1ae2feb7.json'
+# get changed file from HEAD~2 to HEAD~1
+cmd = f'git diff --name-only HEAD~1 HEAD'
+file_name = subprocess.check_output(cmd, shell=True).decode('utf-8')
+cmd = f'git diff main -- {file_name}'
+
 output = subprocess.check_output(cmd, shell=True).decode('utf-8')
 for line in output.split('\n'):
     if line.startswith('---'):
